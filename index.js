@@ -75,3 +75,14 @@ window.addEventListener("click", function(event) {
         modal.style.display = "none";
     }
 });
+
+// questions
+
+
+function timedQuestions() {
+var random = Math.floor(Math.random()*questions.length);
+var questionToDisplay = questions[random];
+
+  var quizElement = document.getElementById(question.panel);
+  quizElement.document.createElement("div");
+}
