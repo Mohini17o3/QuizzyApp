@@ -83,6 +83,28 @@ function timedQuestions() {
 var random = Math.floor(Math.random()*questions.length);
 var questionToDisplay = questions[random];
 
-  var quizElement = document.getElementById(question.panel);
-  quizElement.document.createElement("div");
+var questionElement = document.createElement("div");
+questionElement.textContent = questionToDisplay.id + ")" + " " +questionToDisplay.question ;
+questionElement.classList.add("styleQuestion");
+
+var optionElement = document.createElement("ul"); 
+
+if(optionElement.id === questionElement.id){
+    questionToDisplay.options.forEach(element => {
+     var optionItem =  document.createElement("li");
+     optionItem.textContent = element ;
+     optionElement.appendChild(optionItem);
+
+});
+
+
 }
+var quizElement = document.getElementById("questionPanel");
+
+  quizElement.appendChild(questionElement);
+  quizElement.appendChild(optionElement);
+
+
+}
+
+timedQuestions();
