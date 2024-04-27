@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 body{
     display: flex;
-    background-color: rgb(203, 195, 227 , 0.8);
     font-family: "Plus Jakarta Sans", sans-serif;
 }
+
+
+
 
 
 .header {
@@ -21,6 +23,33 @@ body{
     border-radius: 12px;
 }
 
+.countDown {
+    margin: auto;
+    width: 400px;
+  }
+  
+  .path--background {
+    fill: rgb(34, 213, 201);
+    stroke: #fff;
+    stroke-width: 0px;
+  }
+  
+  .pulse {
+    fill: rgb(255, 74, 74) !important;
+  }
+  
+  .path--foreground {
+    fill: #eee;
+    stroke: #eee;
+    stroke-width: 2px;
+  }
+  
+  .label {
+    font: 90px "Open Sans";
+    font-weight: 900;
+    text-anchor: middle;
+    fill: rgb(34, 213, 201);
+  }
 
 .header li {
     list-style-type: none;
@@ -144,15 +173,18 @@ display: flex;
 flex-direction: column;
 width: max-content;
 position: absolute;
-top: 40%;
-left: 27%;
+top: 20%;
+left: 17%;
 right: 20%;
 padding: 2%;  
 border-radius: 8px;
-background-color: rgb(195, 177, 225);
-height: 30vh;
-width: 45vw;
+background-color: rgb(203, 195, 227 , 0.8);
+font-size: larger;
+height: 50vh;
+width: 65vw;
 box-shadow: 4px 2px 2px#452c63; 
+border: 2px solid #452c63;
+border-radius: 5px;
 }
 #questionPanel ul {
   list-style: none;
@@ -168,11 +200,46 @@ box-shadow: 4px 2px 2px#452c63;
         transition: transform 0.3s; 
           }
           #questionPanel li:hover {
-            transform: scale(1.0); 
-            background-color: #bd8fe6;
-              }
+            transform: scale(1.01); 
+            box-shadow: 4px 2px 2px#452c63; 
 
-.styleQuestion{
-    font-weight: 800;
-    font-size: larger;
-}
+              }  
+
+              .styleQuestion {
+                font-size: 22px;
+                margin-bottom: 10px;
+                font-weight: 800;
+            }
+            .optionItem {
+                cursor: pointer;
+            }
+            .correctAnswer {
+                background-color: #d2e7d6;            }
+            .wrongAnswer {
+                background-color: rgb(200, 97, 97 , 0.7);
+            }
+            .countdown {
+                font-size: 24px;
+                font-weight: bold;
+                margin-top: 10px;
+            }
+
+            #nextButton {
+                width: max-content;
+                border-radius: 7px;
+                padding: 1%;
+            }
+            #nextButton:hover{
+                background-color: #bd8fe6;
+                color: #452c63;
+            }
+
+            .replayButton{
+                width: max-content;
+                border-radius: 7px;
+                padding: 1%;
+            }
+            .replayButton:hover{
+                background-color: #bd8fe6;
+                color: #452c63;
+            }

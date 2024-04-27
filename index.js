@@ -1,7 +1,54 @@
+function displayQuestion(question) {
+    var questionElement = document.getElementById("question");
+    questionElement.textContent = question.question;
+
+    var optionsElement = document.getElementById("options");
+    optionsElement.innerHTML = ""; // Clear previous options
+
+    var correctAnswer = question.answer;
+    question.options.forEach(element => {
+        var optionItem = document.createElement("li");
+        optionItem.textContent = element;
+        optionItem.classList.add("optionItem"); // Add class for styling and click event
+        optionsElement.appendChild(optionItem);
+        optionItem.addEventListener("click", function() {
+            clearTimeout(timer); // Stop the timer when an option is clicked
+            var selectedAnswer = element;
+            var feedbackElement = document.createElement("p");
+            if (selectedAnswer === correctAnswer) {
+                optionItem.classList.add("correctAnswer");
+                feedbackElement.textContent = "🥳 Correct answer: " + correctAnswer;
+                score++;
+            } else {
+                optionItem.classList.add("wrongAnswer");
+                feedbackElement.textContent = "😓 Wrong answer! Correct answer: " + correctAnswer;
+            }
+            optionsElement.appendChild(feedbackElement);
+            document.getElementById("nextButton").style.display = "block"; // Show Next button
+        });
+    });
+
+    // Start the timer
+    var countdownElement = document.getElementById("countdown");
+    var remainingTime = 20; // Initial time in seconds
+    countdownElement.textContent = remainingTime;
+    var timer = setInterval(function() {
+        remainingTime--;
+        countdownElement.textContent = remainingTime;
+        if (remainingTime <= 0) {
+            clearInterval(timer);
+            var feedbackElement = document.createElement("p");
+            feedbackElement.textContent = "Time's up! Correct answer: " + correctAnswer;
+            optionsElement.appendChild(feedbackElement);
+            document.getElementById("nextButton").style.display = "block"; // Show Next button
+        }
+    }, 1000); // Update timer every second
+}
+
 const questions = [
     {   id : 1,
         question : "What is the name of the annual fest of MAIT ? " ,
-        options  : ["TnM " , "Moksha" , "Engifest" , "Oasis"] , 
+        options  : ["TnM" , "Moksha" , "Engifest" , "Oasis"] , 
         answer  : "TnM" 
     } ,
     {  
@@ -20,7 +67,7 @@ const questions = [
     {
         id: 4,
         question : "How many campus libraries does our college MAIT have?" ,
-        options : ["2" , "1 " , "0" , "3"] ,
+        options : ["2" , "1" , "0" , "3"] ,
         answer : "1",
     } , 
     {
@@ -32,8 +79,8 @@ const questions = [
     {
         id: 6 , 
         question : "What is the name of our college's Alumini Meet ?",
-        options : ["SMRITI" , "Techsurge" , "Mridang" , ""] ,
-        answer : "MAIT ECO CLUB",
+        options : ["SMRITI" , "Techsurge" , "Mridang" , "MEET"] ,
+        answer : "SMRITI",
     },
     {
         id: 7 , 
@@ -62,7 +109,7 @@ var rulesBtn = document.getElementById("rulesBtn");
 var closeButton = document.querySelector(".close");
 
 rulesBtn.addEventListener("click", function(event) {
-    event.preventDefault(); // Prevents the default behavior of jumping to the anchor
+    event.preventDefault(); 
     modal.style.display = "block";
 });
 
@@ -76,35 +123,43 @@ window.addEventListener("click", function(event) {
     }
 });
 
-// questions
+// Shuffle questions array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
 
+shuffleArray(questions); 
 
-function timedQuestions() {
-var random = Math.floor(Math.random()*questions.length);
-var questionToDisplay = questions[random];
+var currentQuestionIndex = 0;
+var score = 0; 
 
-var questionElement = document.createElement("div");
-questionElement.textContent = questionToDisplay.id + ")" + " " +questionToDisplay.question ;
-questionElement.classList.add("styleQuestion");
+document.getElementById("nextButton").addEventListener("click", function() {
+    var optionsElement = document.getElementById("options");
+     // Clear previous options
+    optionsElement.innerHTML = "";
 
-var optionElement = document.createElement("ul"); 
+    //hiding the next button
+    document.getElementById("nextButton").style.display = "none"; 
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        displayQuestion(questions[currentQuestionIndex]);
+    } else {
+        // Quiz ends, feedback shown 
+        var questionPanel = document.getElementById("questionPanel");
+        questionPanel.innerHTML = "Quiz is over! You scored " + score + " out of " + questions.length + ".";
+    }
 
-if(optionElement.id === questionElement.id){
-    questionToDisplay.options.forEach(element => {
-     var optionItem =  document.createElement("li");
-     optionItem.textContent = element ;
-     optionElement.appendChild(optionItem);
-
+    var replayButton = document.createElement("button");
+    replayButton.textContent = "Replay Quiz";
+    replayButton.addEventListener("click", function() {
+        // Reload the page to replay the quiz
+        location.reload();
+    });
+    questionPanel.appendChild(replayButton);
+    replayButton.classList.add("replayButton");
 });
 
-
-}
-var quizElement = document.getElementById("questionPanel");
-
-  quizElement.appendChild(questionElement);
-  quizElement.appendChild(optionElement);
-
-
-}
-
-timedQuestions();
+displayQuestion(questions[currentQuestionIndex]);

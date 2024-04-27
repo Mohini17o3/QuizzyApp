@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QUIZZY</title>
     <link rel="stylesheet" href="styles.css">
+ 
 </head>
 <body>
     <section class="header">
@@ -25,19 +26,26 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Rules for the Quiz:</h2>
-            <ul>
-                <li>There would be a 30 seconds timer in every question of the quiz .</li>
-                <li>The questions are related to our college or courses . </li>
-                <li>There will be four options in every question , only one of them is correct</li>
-                <p>Although , the user would get to know if they answered correctly or not , but wait for the end to get the results and remarks .</p>
-            </ul>
+            
+                <ul>
+                    <li>The quiz will start the moment you click the start button  .</li>
+                    <li>There would be a 20 seconds timer in every question of the quiz .</li>
+                    <li>The questions are related to our college or courses . </li>
+                    <li>There will be four options in every question , only one of them is correct</li>
+                    <p>wait for the end to get the results and remarks .</p>
+                </ul>
+              
+            
         </div>
     </section>
- 
-    <section id="questionPanel">
- 
-    </section>
+    <div id="questionPanel">
+        <div id="question"></div>
+        <ul id="options"></ul>
+        <button id="nextButton" style="display: none;">Next</button>
+        <div id="countdown" class="countdown"></div>
+    </div>
 
-<script src="index.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
